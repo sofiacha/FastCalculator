@@ -14,8 +14,8 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    int count = 0, countsyn = 0 , tvend, i;
-    String old;
+    int count = 0, countsyn = 0 , countdot = 0, tvend, i;
+    String old, old1;
     char aChar;
 
     @Override
@@ -82,7 +82,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View viewrt) {
                 old = tv.getText().toString();
-                tv.setText(old + "/");
+                if (tv.getText().length()>0 && tv.getText().charAt(0)!='0' ) {
+                    tv.setText(old + "/");
+                }
             }
         });
         Button dot = (Button) findViewById(R.id.dot);
@@ -90,7 +92,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View viewrt) {
                 old = tv.getText().toString();
-                tv.setText(old + ".");
+                for(int i=0;i<tv.getText().length();i++) {
+                    if(tv.getText().charAt(i)=='.'){
+                        countdot++;
+                    }
+                }
+                if(countdot==0){
+                    tv.setText(old + ".");
+                }
+                countdot=0;
             }
         });
         Button epi = (Button) findViewById(R.id.epi);
@@ -98,7 +108,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View viewrt) {
                 old = tv.getText().toString();
-                tv.setText(old + "*");
+                if (tv.getText().length()>0 && tv.getText().charAt(0)!='0' ) {
+                    tv.setText(old + "*");
+                }
             }
         });
         Button oxtw = (Button) findViewById(R.id.eight);
@@ -327,19 +339,36 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View viewrt) {
                 aChar = tv.getText().charAt(0);
                 tvend = tv.getText().length();
-                if (aChar != '-' ){
-                        old = tv.getText().toString();
-                        tv.setText("-" + old);
-                }else
-                {
-                    old = tv.getText().subSequence(1,tvend).toString();
-                    tv.setText(old);
+                for(int i=tvend-1;i>0;i--){
+                    switch (tv.getText().charAt(i)) {
+                        case '+':
+                            old1 = tv.getText().subSequence(0,i-1).toString() + "-" +  tv.getText().subSequence(4,tvend-1).toString();
+                            tv.setText(old1);
+                            break;
+                        case '-':
+                            old1 = tv.getText().subSequence(0,i-1).toString() + "+" +  tv.getText().subSequence(4,tvend-1).toString();
+                            tv.setText(old1);
+                            break;
+                        case '*':
+                            old1 = tv.getText().subSequence(0,i-1).toString() + "*(-" +  tv.getText().subSequence(4,tvend-1).toString() + ")";
+                            tv.setText(old1);
+                            break;
+                        case '/':
+                            old1 = tv.getText().subSequence(0,i-1).toString() + "/(-" +  tv.getText().subSequence(4,tvend-1).toString() + ")";
+                            tv.setText(old1);
+                            break;
+                        default:
+                            /*if (aChar != '-' ){
+                                old = tv.getText().toString();
+                                tv.setText("-" + old);
+                            }else
+                            {
+                                old = tv.getText().subSequence(1,tvend).toString();
+                                tv.setText(old);
+                            }*/
+                        break;
+                    }
                 }
-
-                while(tv.getText().charAt(i)=='+'||tv.getText().charAt(i)=='-'||tv.getText().charAt(i)=='*'||tv.getText().charAt(i)=='/'){
-
-                }
-
                 /*countsyn++;
                 old = tv.getText().toString();
                 if (countsyn%2==1) {
@@ -356,7 +385,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View viewrt) {
                 old = tv.getText().toString();
-                tv.setText(old + "-");
+                if (tv.getText().length()>0 && tv.getText().charAt(0)!='0' ) {
+                    tv.setText(old + "-");
+                }
             }
         });
         Button kai = (Button) findViewById(R.id.kai);
@@ -364,7 +395,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View viewrt) {
                 old = tv.getText().toString();
-                tv.setText(old + "+");
+                if (tv.getText().length()>0 && tv.getText().charAt(0)!='0' ) {
+                    tv.setText(old + "+");
+                }
             }
         });
 
