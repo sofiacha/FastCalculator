@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    int count = 0, countsyn = 0 , tvend;
+    int count = 0, countsyn = 0 , tvend, i;
     String old;
     char aChar;
 
@@ -335,6 +335,11 @@ public class MainActivity extends AppCompatActivity {
                     old = tv.getText().subSequence(1,tvend).toString();
                     tv.setText(old);
                 }
+
+                while(tv.getText().charAt(i)=='+'||tv.getText().charAt(i)=='-'||tv.getText().charAt(i)=='*'||tv.getText().charAt(i)=='/'){
+
+                }
+
                 /*countsyn++;
                 old = tv.getText().toString();
                 if (countsyn%2==1) {
