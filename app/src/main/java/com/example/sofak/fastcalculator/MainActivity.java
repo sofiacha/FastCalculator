@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    int count = 0, countsyn = 0 , countdot = 0, tvend, i;
+    int count = 0, countsyn = 0 , countdot = 0, tvend, tvlength, i;
     String old, old1;
     char aChar;
 
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
-                Log.d("length gt xanomaste", Integer.toString(tv.getText().length()));
+               // Log.d("length gt xanomaste", Integer.toString(tv.getText().length()));
                 if (tv.getText().length()>1){
                 old = tv.getText().subSequence(0,tv.getText().length()-1).toString();
                 tv.setText(old);
@@ -357,25 +357,75 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View viewrt) {
                 aChar = tv.getText().charAt(0);
                 tvend = tv.getText().length();
-                for(int i=tvend-1;i>0;i--){
-                    switch (tv.getText().charAt(i)) {
-                        case '+':
-                            old1 = tv.getText().subSequence(0,i-1).toString() + "-" +  tv.getText().subSequence(4,tvend-1).toString();
+                tvlength = tv.getText().length();
+                Log.d("SynPlyn Length", Integer.toString(tv.getText().length()));
+                while((tv.getText().charAt(tvlength-1)!= '+' && tv.getText().charAt(tvlength-1)!= '-' && tv.getText().charAt(tvlength-1)!= '*'&& tv.getText().charAt(tvlength-1)!= '/'&&tvlength>1)){
+                    Log.d("SynPlyn Char", Character.toString(tv.getText().charAt(tvlength-1)));
+                    Log.d("SynPlyn Tvlength", Integer.toString(tvlength));
+                    tvlength--;
+
+                }
+                switch (tv.getText().charAt(tvlength-1)) {
+                    case '+':
+                        if(tvlength-1==tvend-1){
+                            old1 = tv.getText().subSequence(0,tvlength-1).toString() + "-" ;
                             tv.setText(old1);
-                            break;
-                        case '-':
-                            old1 = tv.getText().subSequence(0,i-1).toString() + "+" +  tv.getText().subSequence(4,tvend-1).toString();
+                        }else {
+                            old1 = tv.getText().subSequence(0, tvlength - 1).toString() + "-" + tv.getText().subSequence(tvlength , tvend).toString();
                             tv.setText(old1);
-                            break;
-                        case '*':
-                            old1 = tv.getText().subSequence(0,i-1).toString() + "*(-" +  tv.getText().subSequence(4,tvend-1).toString() + ")";
+                        }
+                        break;
+                    case '-':
+                        if(tvlength-1==0){
+                            old1 = tv.getText().subSequence(1,tvend).toString();
                             tv.setText(old1);
-                            break;
-                        case '/':
-                            old1 = tv.getText().subSequence(0,i-1).toString() + "/(-" +  tv.getText().subSequence(4,tvend-1).toString() + ")";
+                            Log.d("PLYN Mphka edw", "1 ");
+                        }
+                        else if(tvlength-1==tvend-1 ){
+                            if ( tvlength-2!='(') {
+                                old1 = tv.getText().subSequence(0, tvlength - 1).toString() + "+";
+                                tv.setText(old1);
+                                Log.d("PLYN Mphka edw", "2 ");
+                            }else{
+                                old1 = tv.getText().subSequence(0, tvlength - 1).toString();
+                                tv.setText(old1);
+                                Log.d("PLYN Mphka edw", "3 ");
+                            }
+                        }else {
+                            Log.d("length", "tvlength-2");
+                            if(tv.getText().charAt(tvlength-2)!='('){
+                                old1 = tv.getText().subSequence(0, tvlength - 1).toString() + "+" + tv.getText().subSequence(tvlength , tvend ).toString();
+                                tv.setText(old1);
+                                Log.d("PLYN Mphka edw", "4");
+                            }else{
+                                old1 = tv.getText().subSequence(0, tvlength - 2).toString() +  tv.getText().subSequence(tvlength , tvend ).toString();
+                                tv.setText(old1);
+                                Log.d("PLYN Mphka edw", "5");
+
+                            }
+                        }
+                        break;
+                    case '*':
+                        if(tvlength-1==tvend-1){
+                            old1 = tv.getText().subSequence(0,tvlength-2).toString() + "*(-" ;
                             tv.setText(old1);
-                            break;
-                        default:
+                        }else {
+                            old1 = tv.getText().subSequence(0, tvlength - 1).toString() + "*(-" + tv.getText().subSequence(tvlength , tvend ).toString();
+                            tv.setText(old1);
+                        }
+                        break;
+                    case '/':
+                        if(tvlength-1==tvend-1){
+                            old1 = tv.getText().subSequence(0,tvlength-2).toString() + "/(-" ;
+                            tv.setText(old1);
+                        }else {
+                            old1 = tv.getText().subSequence(0, tvlength - 1).toString() + "/(-" + tv.getText().subSequence(tvlength , tvend ).toString();
+                            tv.setText(old1);
+                        }
+                        break;
+                    default:
+                        old1 = "-" + tv.getText().toString();
+                        tv.setText(old1);
                             /*if (aChar != '-' ){
                                 old = tv.getText().toString();
                                 tv.setText("-" + old);
@@ -386,7 +436,9 @@ public class MainActivity extends AppCompatActivity {
                             }*/
                         break;
                     }
-                }
+                /*for(int i=tvend-1;i>0;i--){
+
+                }*/
                 /*countsyn++;
                 old = tv.getText().toString();
                 if (countsyn%2==1) {
