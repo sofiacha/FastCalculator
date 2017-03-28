@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    int count = 0, countsyn = 0 , countdot = 0, tvend, tvlength, i;
+    int count, countsyn = 0 , countdot = 0, tvend, tvlength, i;
     String old, old1;
     char aChar;
 
@@ -60,25 +60,43 @@ public class MainActivity extends AppCompatActivity {
         pare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
-                count++;
+                count = 1;
                 aChar = tv.getText().charAt(0);
-                //tvend = tv.getText().length() - 1;
-                //old = tv.getText().toString();
+                tvend = tv.getText().length();
+               // ij = tv.getText().length();
+                Log.d("Pare Length", Integer.toString(tv.getText().length()));
                 if (aChar == '0' ){
-                    if (count%2==1) {
-                        tv.setText("(");
-                    }
-                    else{
-                        tv.setText(")");
-                    }
+                        Log.d("Pare 3", Integer.toString(count));
+                        if (count%2==1) {
+                            tv.setText("(");
+                            count++;
+                            Log.d("Pare 4", Integer.toString(count));
+                        }
+                        else{
+                            tv.setText(")");
+                            count++;
+                            Log.d("Pare 5", Integer.toString(count));
+                        }
                 }else
                 {
+                    for(int ij=0;ij<tvend;ij++){
+                        if (tv.getText().charAt(ij)== '(' || tv.getText().charAt(ij)== ')'){
+                            count++;
+                            Log.d("Pare 1", Character.toString(tv.getText().charAt(ij)));
+                        }                    //tvlength--;
+                        //Log.d("Pare 2", Integer.toString(tv.getText().length()));
+                    }
+                    Log.d("Pare 6", Integer.toString(count));
                     old = tv.getText().toString();
                     if (count%2==1) {
                         tv.setText(old + "(");
+                        count++;
+                        Log.d("Pare 7", Integer.toString(count));
                     }
                     else{
                         tv.setText(old + ")");
+                        count++;
+                        Log.d("Pare 8", Integer.toString(count));
                     }
                 }
             }
