@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 //import android.widget.TextView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,12 +33,26 @@ public class MainActivity extends AppCompatActivity {
             android:textSize="100px"
             android:inputType="phone"
             android:textAlignment="textEnd"/>  */
+       Button back = (Button) findViewById(R.id.backspace);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View viewrt) {
+                Log.d("length gt xanomaste", Integer.toString(tv.getText().length()));
+                if (tv.getText().length()>1){
+                old = tv.getText().subSequence(0,tv.getText().length()-1).toString();
+                tv.setText(old);
+                }
+                else {//if(tv.getText().length()==1 && tv.getText().charAt(0)!=0){
+                    tv.setText("0");
+                }
+            }
+        });
+
         Button clea = (Button) findViewById(R.id.clear);
         clea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
-                aChar = tv.getText().charAt(0);
-                Log.d("Char at index 0",  Character.toString(aChar) );
+                //aChar = tv.getText().charAt(0);
                 tv.setText("0");
             }
         });
@@ -117,20 +132,20 @@ public class MainActivity extends AppCompatActivity {
         oxtw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
-                aChar = tv.getText().charAt(0);
-                tvend = tv.getText().length() - 1;
-                if (aChar == '0' ){
-                    if (tv.getText().length()>1){
-                        old = tv.getText().subSequence(1,tvend).toString();
+                if(tv.getText().length()!=0) {
+                    aChar = tv.getText().charAt(0);
+                    tvend = tv.getText().length() - 1;
+                    if (aChar == '0') {
+                        if (tv.getText().length() > 1) {
+                            old = tv.getText().subSequence(1, tvend).toString();
+                            tv.setText(old + "8");
+                        } else {
+                            tv.setText("8");
+                        }
+                    } else {
+                        old = tv.getText().toString();
                         tv.setText(old + "8");
-                    }else
-                    {
-                        tv.setText("8");
                     }
-                }else
-                {
-                    old = tv.getText().toString();
-                    tv.setText(old + "8");
                 }
             }
         });
@@ -138,20 +153,20 @@ public class MainActivity extends AppCompatActivity {
         ennia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
-                aChar = tv.getText().charAt(0);
-                tvend = tv.getText().length() - 1;
-                if (aChar == '0' ){
-                    if (tv.getText().length()>1){
-                        old = tv.getText().subSequence(1,tvend).toString();
+                if(tv.getText().length()!=0) {
+                    aChar = tv.getText().charAt(0);
+                    tvend = tv.getText().length() - 1;
+                    if (aChar == '0') {
+                        if (tv.getText().length() > 1) {
+                            old = tv.getText().subSequence(1, tvend).toString();
+                            tv.setText(old + "9");
+                        } else {
+                            tv.setText("9");
+                        }
+                    } else {
+                        old = tv.getText().toString();
                         tv.setText(old + "9");
-                    }else
-                    {
-                        tv.setText("9");
                     }
-                }else
-                {
-                    old = tv.getText().toString();
-                    tv.setText(old + "9");
                 }
             }
         });
@@ -159,20 +174,20 @@ public class MainActivity extends AppCompatActivity {
         efta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
-                aChar = tv.getText().charAt(0);
-                tvend = tv.getText().length() - 1;
-                if (aChar == '0' ){
-                    if (tv.getText().length()>1){
-                        old = tv.getText().subSequence(1,tvend).toString();
+                if(tv.getText().length()!=0) {
+                    aChar = tv.getText().charAt(0);
+                    tvend = tv.getText().length() - 1;
+                    if (aChar == '0') {
+                        if (tv.getText().length() > 1) {
+                            old = tv.getText().subSequence(1, tvend).toString();
+                            tv.setText(old + "7");
+                        } else {
+                            tv.setText("7");
+                        }
+                    } else {
+                        old = tv.getText().toString();
                         tv.setText(old + "7");
-                    }else
-                    {
-                        tv.setText("7");
                     }
-                }else
-                {
-                    old = tv.getText().toString();
-                    tv.setText(old + "7");
                 }
             }
         });
@@ -180,20 +195,20 @@ public class MainActivity extends AppCompatActivity {
         exi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
-                aChar = tv.getText().charAt(0);
-                tvend = tv.getText().length() - 1;
-                if (aChar == '0' ){
-                    if (tv.getText().length()>1){
-                        old = tv.getText().subSequence(1,tvend).toString();
+                if(tv.getText().length()!=0) {
+                    aChar = tv.getText().charAt(0);
+                    tvend = tv.getText().length() - 1;
+                    if (aChar == '0') {
+                        if (tv.getText().length() > 1) {
+                            old = tv.getText().subSequence(1, tvend).toString();
+                            tv.setText(old + "6");
+                        } else {
+                            tv.setText("6");
+                        }
+                    } else {
+                        old = tv.getText().toString();
                         tv.setText(old + "6");
-                    }else
-                    {
-                        tv.setText("6");
                     }
-                }else
-                {
-                    old = tv.getText().toString();
-                    tv.setText(old + "6");
                 }
             }
         });
@@ -201,20 +216,20 @@ public class MainActivity extends AppCompatActivity {
         pente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
-                aChar = tv.getText().charAt(0);
-                tvend = tv.getText().length() - 1;
-                if (aChar == '0' ){
-                    if (tv.getText().length()>1){
-                        old = tv.getText().subSequence(1,tvend).toString();
+                if(tv.getText().length()!=0) {
+                    aChar = tv.getText().charAt(0);
+                    tvend = tv.getText().length() - 1;
+                    if (aChar == '0') {
+                        if (tv.getText().length() > 1) {
+                            old = tv.getText().subSequence(1, tvend).toString();
+                            tv.setText(old + "5");
+                        } else {
+                            tv.setText("5");
+                        }
+                    } else {
+                        old = tv.getText().toString();
                         tv.setText(old + "5");
-                    }else
-                    {
-                        tv.setText("5");
                     }
-                }else
-                {
-                    old = tv.getText().toString();
-                    tv.setText(old + "5");
                 }
             }
         });
@@ -222,20 +237,20 @@ public class MainActivity extends AppCompatActivity {
         tessera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
-                aChar = tv.getText().charAt(0);
-                tvend = tv.getText().length() - 1;
-                if (aChar == '0' ){
-                    if (tv.getText().length()>1){
-                        old = tv.getText().subSequence(1,tvend).toString();
+                if(tv.getText().length()!=0) {
+                    aChar = tv.getText().charAt(0);
+                    tvend = tv.getText().length() - 1;
+                    if (aChar == '0') {
+                        if (tv.getText().length() > 1) {
+                            old = tv.getText().subSequence(1, tvend).toString();
+                            tv.setText(old + "4");
+                        } else {
+                            tv.setText("4");
+                        }
+                    } else {
+                        old = tv.getText().toString();
                         tv.setText(old + "4");
-                    }else
-                    {
-                        tv.setText("4");
                     }
-                }else
-                {
-                    old = tv.getText().toString();
-                    tv.setText(old + "4");
                 }
             }
         });
@@ -243,41 +258,42 @@ public class MainActivity extends AppCompatActivity {
         tria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
-                aChar = tv.getText().charAt(0);
+                if (tv.getText().length() != 0) {
+                    aChar = tv.getText().charAt(0);
+                }
                 tvend = tv.getText().length() - 1;
-                if (aChar == '0' ){
-                    if (tv.getText().length()>1){
-                        old = tv.getText().subSequence(1,tvend).toString();
+                if (aChar == '0') {
+                    if (tv.getText().length() > 1) {
+                        old = tv.getText().subSequence(1, tvend).toString();
                         tv.setText(old + "3");
-                    }else
-                    {
+                    } else {
                         tv.setText("3");
                     }
-                }else
-                {
+                } else {
                     old = tv.getText().toString();
                     tv.setText(old + "3");
                 }
             }
+
         });
         Button duo = (Button) findViewById(R.id.two);
         duo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
-                aChar = tv.getText().charAt(0);
-                tvend = tv.getText().length() - 1;
-                if (aChar == '0' ){
-                    if (tv.getText().length()>1){
-                        old = tv.getText().subSequence(1,tvend).toString();
+                if(tv.getText().length()!=0) {
+                    aChar = tv.getText().charAt(0);
+                    tvend = tv.getText().length() - 1;
+                    if (aChar == '0') {
+                        if (tv.getText().length() > 1) {
+                            old = tv.getText().subSequence(1, tvend).toString();
+                            tv.setText(old + "2");
+                        } else {
+                            tv.setText("2");
+                        }
+                    } else {
+                        old = tv.getText().toString();
                         tv.setText(old + "2");
-                    }else
-                    {
-                        tv.setText("2");
                     }
-                }else
-                {
-                    old = tv.getText().toString();
-                    tv.setText(old + "2");
                 }
             }
         });
@@ -285,6 +301,7 @@ public class MainActivity extends AppCompatActivity {
         ena.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
+                if(tv.getText().length()!=0) {
                 aChar = tv.getText().charAt(0);
                 tvend = tv.getText().length() - 1;
                 if (aChar == '0' ){
@@ -300,26 +317,27 @@ public class MainActivity extends AppCompatActivity {
                     old = tv.getText().toString();
                     tv.setText(old + "1");
                 }
+                }
             }
         });
         Button mhden = (Button) findViewById(R.id.zero);
         mhden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
-                aChar = tv.getText().charAt(0);
-                tvend = tv.getText().length() - 1;
-                if (aChar == '0' ){
-                    if (tv.getText().length()>1){
-                        old = tv.getText().subSequence(1,tvend).toString();
+                if(tv.getText().length()!=0) {
+                    aChar = tv.getText().charAt(0);
+                    tvend = tv.getText().length() - 1;
+                    if (aChar == '0') {
+                        if (tv.getText().length() > 1) {
+                            old = tv.getText().subSequence(1, tvend).toString();
+                            tv.setText(old + "0");
+                        } else {
+                            tv.setText("0");
+                        }
+                    } else {
+                        old = tv.getText().toString();
                         tv.setText(old + "0");
-                    }else
-                    {
-                        tv.setText("0");
                     }
-                }else
-                {
-                    old = tv.getText().toString();
-                    tv.setText(old + "0");
                 }
             }
         });
