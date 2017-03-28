@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="fill_parent"
@@ -9,16 +10,33 @@
     tools:context="com.example.sofak.fastcalculator.MainActivity">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="275px"
+        android:layout_height="260px"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/canvas"
             android:layout_width="fill_parent"
-            android:layout_height="78dp"
+            android:layout_height="match_parent"
             android:text="0"
-            android:textSize="100px"
-            android:textAlignment="textEnd"/>
+            android:textAlignment="textEnd"
+            android:textSize="100px" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="150px"
+            android:layout_height="110px"
+            android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/backspace"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="150px"
+                android:layout_height="110px"
+                android:layout_alignParentRight="true"
+                android:layout_weight="0.30"
+                android:background="@drawable/ic_action_name"
+                android:clickable="true"
+                android:elevation="0dp"
+                android:longClickable="false" />
     </LinearLayout>
 
     <LinearLayout
