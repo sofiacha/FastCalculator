@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -17,13 +18,11 @@ import java.util.Random;
 
 
 
-
 public class MainActivity extends AppCompatActivity {
 
-    int count, countsyn = 0 , countdot = 0, tvend, tvlength, i;
+    int count, countdot = 0, tvend, tvlength, i;
     String old, old1;
     char aChar;
-    private ImageView mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         final TextView tv = (TextView) findViewById(R.id.canvas);
         final TextView answer = (TextView) findViewById(R.id.answer);
+                 //TODO  Allazw textview me editext*/
+                 //TODO Sxolia
         /*EditText numbers = (EditText) findViewById(R.id.edit_numbers);
         *         <EditText
             android:id="@+id/edit_numbers"
@@ -411,21 +412,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View viewrt) {
                 Random r = new Random();
-                int i1 = r.nextInt(50) + 1;
+                final int i1 = r.nextInt(50) + 1;
                 tv.setText(Integer.toString(i1));
-                Dialog d = new Dialog(MainActivity.this);
-                d.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-                d.setContentView(getLayoutInflater().inflate(R.layout.tryfragment, null));
-                TextView titel = (TextView) d.findViewById(R.id.answer);
-                titel.setText(Integer.toString(i1));
-                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-                getWindow().setFormat(PixelFormat.RGBA_8888);
-                d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                lp.copyFrom(d.getWindow().getAttributes());
-                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-                d.show();
-                d.getWindow().setAttributes(lp);
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Do something after 100ms
+                        Dialog d = new Dialog(MainActivity.this);
+                        d.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+                        d.setContentView(getLayoutInflater().inflate(R.layout.tryfragment, null));
+                        TextView titel = (TextView) d.findViewById(R.id.answer);
+                        titel.setText("The answer is "+Integer.toString(i1));
+                        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                        getWindow().setFormat(PixelFormat.RGBA_8888);
+                        d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        lp.copyFrom(d.getWindow().getAttributes());
+                        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                        d.show();
+                        //TODO on click kleine to para8yro
+                        d.getWindow().setAttributes(lp);
+                    }
+                }, 2000);
             }
         });
         Button synplyn = (Button) findViewById(R.id.synplun);
@@ -498,9 +507,4 @@ public class MainActivity extends AppCompatActivity {
         });
 
      }
-         /*TODO random number
-        *   int alreadyPickedNumber=3 //Number to exclude
-            int number=random.nextInt(9);
-            while(number==alreadyPickedNumber){
-            number=random.nextInt(9);}*/
 }
