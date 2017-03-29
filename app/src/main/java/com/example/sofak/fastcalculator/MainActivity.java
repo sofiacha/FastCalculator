@@ -4,14 +4,18 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -419,7 +423,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         //Do something after 100ms
-                        Dialog d = new Dialog(MainActivity.this);
+                        final Dialog d = new Dialog(MainActivity.this) {
+                            @Override
+                            public boolean onTouchEvent(MotionEvent event) {
+                                // Tap anywhere to close dialog.
+                                this.dismiss();
+                                return true;
+                            }
+                        };
                         d.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
                         d.setContentView(getLayoutInflater().inflate(R.layout.tryfragment, null));
                         TextView titel = (TextView) d.findViewById(R.id.answer);
@@ -431,10 +442,9 @@ public class MainActivity extends AppCompatActivity {
                         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
                         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
                         d.show();
-                        //TODO on click kleine to para8yro
                         d.getWindow().setAttributes(lp);
                     }
-                }, 2000);
+                }, 1000);
             }
         });
         Button synplyn = (Button) findViewById(R.id.synplun);
