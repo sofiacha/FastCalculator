@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="555dp"
         android:orientation="horizontal">
 
         <TextView
@@ -19,21 +19,20 @@
             android:layout_height="match_parent"
             android:text="0"
             android:textAlignment="textEnd"
-            android:textSize="100px" />
+            android:textSize="100dp" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="150px"
-        android:layout_height="110px"
+        android:layout_width="121dp"
+        android:layout_height="90dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/backspace"
             style="@style/Widget.AppCompat.Button"
-            android:layout_width="150px"
-            android:layout_height="110px"
+            android:layout_width="121dp"
+            android:layout_height="90dp"
             android:layout_alignParentRight="true"
-            android:layout_weight="0.30"
             android:background="@drawable/ic_action_name"
             android:clickable="true"
             android:elevation="0dp"
@@ -42,14 +41,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150px"
+        android:layout_height="100dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/clear"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -63,7 +62,7 @@
         <Button
             android:id="@+id/parenthesis"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -76,7 +75,7 @@
         <Button
             android:id="@+id/percent"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -89,7 +88,7 @@
         <Button
             android:id="@+id/dia"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -102,13 +101,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150px"
+        android:layout_height="100dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/seven"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -121,7 +120,7 @@
         <Button
             android:id="@+id/eight"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -134,7 +133,7 @@
         <Button
             android:id="@+id/nine"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -147,7 +146,7 @@
         <Button
             android:id="@+id/epi"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -160,13 +159,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150px"
+        android:layout_height="100dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/four"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -179,7 +178,7 @@
         <Button
             android:id="@+id/five"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -192,7 +191,7 @@
         <Button
             android:id="@+id/six"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -205,7 +204,7 @@
         <Button
             android:id="@+id/meion"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -218,13 +217,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150px"
+        android:layout_height="100dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/one"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -237,7 +236,7 @@
         <Button
             android:id="@+id/two"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -250,7 +249,7 @@
         <Button
             android:id="@+id/three"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -263,7 +262,7 @@
         <Button
             android:id="@+id/kai"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -276,13 +275,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150px"
+        android:layout_height="100dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/dot"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -295,7 +294,7 @@
         <Button
             android:id="@+id/zero"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -308,7 +307,7 @@
         <Button
             android:id="@+id/synplun"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
@@ -321,7 +320,7 @@
         <Button
             android:id="@+id/ison"
             android:layout_width="368dp"
-            android:layout_height="150px"
+            android:layout_height="100dp"
             android:layout_weight="0.30"
             android:background="@drawable/buttons"
             android:clickable="true"
