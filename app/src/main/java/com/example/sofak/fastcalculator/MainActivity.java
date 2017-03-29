@@ -4,18 +4,14 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -24,19 +20,27 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    int count, countdot = 0, tvend, tvlength, i;
-    String old, old1;
+    //declaration and initialization of variables
+    int count;
+    int countdot = 0;
+    int tvend;
+    int tvlength;
+    int i;
+    String old;
+    String old1;
     char aChar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //set layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //declaration initialisation elements of the layout
         final TextView tv = (TextView) findViewById(R.id.canvas);
-        final TextView answer = (TextView) findViewById(R.id.answer);
                  //TODO  Allazw textview me editext*/
-                 //TODO Sxolia
+
+
         /*EditText numbers = (EditText) findViewById(R.id.edit_numbers);
         *         <EditText
             android:id="@+id/edit_numbers"
@@ -45,11 +49,13 @@ public class MainActivity extends AppCompatActivity {
             android:textSize="100px"
             android:inputType="phone"
             android:textAlignment="textEnd"/>  */
+
+        //for each button I create a function
        Button back = (Button) findViewById(R.id.backspace);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
-
+                //checks if textview has context before deleting
                 if (tv.getText().length()>1){
                 old = tv.getText().subSequence(0,tv.getText().length()-1).toString();
                 tv.setText(old);
@@ -70,9 +76,11 @@ public class MainActivity extends AppCompatActivity {
         pare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
+                //variable that counts how many parenthesis have already been put, both ( and )
                 count = 1;
                 aChar = tv.getText().charAt(0);
                 tvend = tv.getText().length();
+                //if there is a zero in the numbers it puts ( or ) depending on how much parenthesis have been put already
                 if (aChar == '0' ){
                         if (count%2==1) {
                             tv.setText("(");
@@ -84,12 +92,14 @@ public class MainActivity extends AppCompatActivity {
                         }
                 }else
                 {
+                    //counting the parenthesis that have already been put in textview
                     for(int ij=0;ij<tvend;ij++){
                         if (tv.getText().charAt(ij)== '(' || tv.getText().charAt(ij)== ')'){
                             count++;
                         }
                     }
                     old = tv.getText().toString();
+                    //depending of the number of counts ( or ) will be put
                     if (count%2==1) {
                         tv.setText(old + "(");
                         count++;
@@ -106,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View viewrt) {
                 old = tv.getText().toString();
+                //checking if there is already a percent symbol before putting a new one
                 if(tv.getText().charAt(tv.getText().length()-1)=='%'){
                     tv.setText(old);
                 }else{
@@ -118,7 +129,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View viewrt) {
                 old = tv.getText().toString();
+                //checking if there is a number to divise or if it is zero
                 if (tv.getText().length()>0 && tv.getText().charAt(0)!='0' ) {
+                    //if there is already another symbol(+,-,*) it changes to / and if is already a / symbol it doesn't add an extra one.
                     if(tv.getText().charAt(tv.getText().length()-1)=='/') {
                         tv.setText(old );
                     }else if (tv.getText().charAt(tv.getText().length()-1)=='+'||tv.getText().charAt(tv.getText().length()-1)=='*'||tv.getText().charAt(tv.getText().length()-1)=='-'){
@@ -135,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View viewrt) {
                 old = tv.getText().toString();
+                //checking if there is already a dot
                 for(int i=0;i<tv.getText().length();i++) {
                     if(tv.getText().charAt(i)=='.'){
                         countdot++;
@@ -151,7 +165,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View viewrt) {
                 old = tv.getText().toString();
+                //checking if there is a number to multiplie or if it is zero
                 if (tv.getText().length()>0 && tv.getText().charAt(0)!='0' ) {
+                    //if there is already another symbol(+,-,/) it changes to * and if is already a * symbol it doesn't add an extra one.
                     if(tv.getText().charAt(tv.getText().length()-1)=='*') {
                         tv.setText(old );
                     }else if (tv.getText().charAt(tv.getText().length()-1)=='+'||tv.getText().charAt(tv.getText().length()-1)=='-'||tv.getText().charAt(tv.getText().length()-1)=='/'){
@@ -168,7 +184,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View viewrt) {
                 old = tv.getText().toString();
+                //checking if there is a number to subtract or if it is zero
                 if (tv.getText().length()>0 && tv.getText().charAt(0)!='0' ) {
+                    //if there is already another symbol(+,/,*) it changes to - and if is already a - symbol it doesn't add an extra one.
                     if(tv.getText().charAt(tv.getText().length()-1)=='-') {
                         tv.setText(old );
                     }else if (tv.getText().charAt(tv.getText().length()-1)=='+'||tv.getText().charAt(tv.getText().length()-1)=='*'||tv.getText().charAt(tv.getText().length()-1)=='/'){
@@ -185,7 +203,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View viewrt) {
                 old = tv.getText().toString();
+                //checking if there is a number to add or if it is zero
                 if (tv.getText().length()>0 && tv.getText().charAt(0)!='0' ) {
+                    //if there is already another symbol(/,-,*) it changes to + and if is already a + symbol it doesn't add an extra one.
                     if(tv.getText().charAt(tv.getText().length()-1)=='+') {
                         tv.setText(old);
                     }else if (tv.getText().charAt(tv.getText().length()-1)=='-'||tv.getText().charAt(tv.getText().length()-1)=='*'||tv.getText().charAt(tv.getText().length()-1)=='/'){
@@ -205,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
                 if(tv.getText().length()!=0) {
                     aChar = tv.getText().charAt(0);
                     tvend = tv.getText().length() - 1;
+                    //checking if there is already a number and adds 8 or if it is zero so it changes it to 8
                     if (aChar == '0') {
                         if (tv.getText().length() > 1) {
                             old = tv.getText().subSequence(1, tvend).toString();
@@ -226,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
                 if(tv.getText().length()!=0) {
                     aChar = tv.getText().charAt(0);
                     tvend = tv.getText().length() - 1;
+                    //checking if there is already a number and adds 9 or if it is zero so it changes it to 9
                     if (aChar == '0') {
                         if (tv.getText().length() > 1) {
                             old = tv.getText().subSequence(1, tvend).toString();
@@ -247,6 +269,7 @@ public class MainActivity extends AppCompatActivity {
                 if(tv.getText().length()!=0) {
                     aChar = tv.getText().charAt(0);
                     tvend = tv.getText().length() - 1;
+                    //checking if there is already a number and adds 7 or if it is zero so it changes it to 7
                     if (aChar == '0') {
                         if (tv.getText().length() > 1) {
                             old = tv.getText().subSequence(1, tvend).toString();
@@ -268,6 +291,7 @@ public class MainActivity extends AppCompatActivity {
                 if(tv.getText().length()!=0) {
                     aChar = tv.getText().charAt(0);
                     tvend = tv.getText().length() - 1;
+                    //checking if there is already a number and adds 6 or if it is zero so it changes it to 6
                     if (aChar == '0') {
                         if (tv.getText().length() > 1) {
                             old = tv.getText().subSequence(1, tvend).toString();
@@ -289,6 +313,7 @@ public class MainActivity extends AppCompatActivity {
                 if(tv.getText().length()!=0) {
                     aChar = tv.getText().charAt(0);
                     tvend = tv.getText().length() - 1;
+                    //checking if there is already a number and adds 5 or if it is zero so it changes it to 5
                     if (aChar == '0') {
                         if (tv.getText().length() > 1) {
                             old = tv.getText().subSequence(1, tvend).toString();
@@ -310,6 +335,7 @@ public class MainActivity extends AppCompatActivity {
                 if(tv.getText().length()!=0) {
                     aChar = tv.getText().charAt(0);
                     tvend = tv.getText().length() - 1;
+                    //checking if there is already a number and adds 4 or if it is zero so it changes it to 4
                     if (aChar == '0') {
                         if (tv.getText().length() > 1) {
                             old = tv.getText().subSequence(1, tvend).toString();
@@ -328,10 +354,12 @@ public class MainActivity extends AppCompatActivity {
         tria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
+                //checking if there is a number already in textview
                 if (tv.getText().length() != 0) {
                     aChar = tv.getText().charAt(0);
                 }
                 tvend = tv.getText().length() - 1;
+                //checking if there is already a number and adds 3 or if it is zero so it changes it to 3
                 if (aChar == '0') {
                     if (tv.getText().length() > 1) {
                         old = tv.getText().subSequence(1, tvend).toString();
@@ -353,6 +381,7 @@ public class MainActivity extends AppCompatActivity {
                 if(tv.getText().length()!=0) {
                     aChar = tv.getText().charAt(0);
                     tvend = tv.getText().length() - 1;
+                    //checking if there is already a number and adds 2 or if it is zero so it changes it to 2
                     if (aChar == '0') {
                         if (tv.getText().length() > 1) {
                             old = tv.getText().subSequence(1, tvend).toString();
@@ -374,6 +403,7 @@ public class MainActivity extends AppCompatActivity {
                 if(tv.getText().length()!=0) {
                 aChar = tv.getText().charAt(0);
                 tvend = tv.getText().length() - 1;
+               //checking if there is already a number and adds 1 or if it is zero so it changes it to 1
                 if (aChar == '0' ){
                     if (tv.getText().length()>1){
                         old = tv.getText().subSequence(1,tvend).toString();
@@ -397,6 +427,7 @@ public class MainActivity extends AppCompatActivity {
                 if(tv.getText().length()!=0) {
                     aChar = tv.getText().charAt(0);
                     tvend = tv.getText().length() - 1;
+                    //checking if there is already a number and adds 0 or if it is zero so it changes it to 0
                     if (aChar == '0') {
                         if (tv.getText().length() > 1) {
                             old = tv.getText().subSequence(1, tvend).toString();
@@ -417,12 +448,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View viewrt) {
                 Random r = new Random();
                 final int i1 = r.nextInt(50) + 1;
+                //randomises the output
                 tv.setText(Integer.toString(i1));
                 final Handler handler = new Handler();
+                //I am using a handler to postpone the dialog box for 1sec
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        //Do something after 100ms
+                        //Do something after 1000ms
+                        //I am creating the dialog window and dismiss it after taping inside it
                         final Dialog d = new Dialog(MainActivity.this) {
                             @Override
                             public boolean onTouchEvent(MotionEvent event) {
@@ -432,9 +466,12 @@ public class MainActivity extends AppCompatActivity {
                             }
                         };
                         d.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+                        //initialize the specific layout
                         d.setContentView(getLayoutInflater().inflate(R.layout.tryfragment, null));
+                        //setting the answer to dialog window
                         TextView titel = (TextView) d.findViewById(R.id.answer);
                         titel.setText("The answer is "+Integer.toString(i1));
+                        //giving specific parameters to window
                         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
                         getWindow().setFormat(PixelFormat.RGBA_8888);
                         d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -454,15 +491,18 @@ public class MainActivity extends AppCompatActivity {
                 aChar = tv.getText().charAt(0);
                 tvend = tv.getText().length();
                 tvlength = tv.getText().length();
+                //searching from end to start the textview for a symbol, end to 1 (not 0)
                 while((tv.getText().charAt(tvlength-1)!= '+' && tv.getText().charAt(tvlength-1)!= '-' && tv.getText().charAt(tvlength-1)!= '*'&& tv.getText().charAt(tvlength-1)!= '/'&&tvlength>1)){
                     tvlength--;
                 }
+                //depending on what the symbol is
                 switch (tv.getText().charAt(tvlength-1)) {
                     case '+':
+                        //if it is in the end then we change it
                         if(tvlength-1==tvend-1){
                             old1 = tv.getText().subSequence(0,tvlength-1).toString() + "-" ;
                             tv.setText(old1);
-                        }else {
+                        }else {//if it is somewhere in between then we create a string that has the string that it was before but we change the symbol
                             old1 = tv.getText().subSequence(0, tvlength - 1).toString() + "-" + tv.getText().subSequence(tvlength , tvend).toString();
                             tv.setText(old1);
                         }
@@ -509,6 +549,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     default:
+                        //if we are here it means that there is no symbol, only a number so we add a - in the start
                         old1 = "-" + tv.getText().toString();
                         tv.setText(old1);
                         break;
