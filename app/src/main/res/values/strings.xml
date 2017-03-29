@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FastCalculator</string>
+    <string name="toldya">I told you I was fast, not smart!</string>
+    <string name="descrphoto">https://me.me/i/interviewer-it-says-here-youre-extremely-fast-at-maths-whats-5040790</string>
 </resources>

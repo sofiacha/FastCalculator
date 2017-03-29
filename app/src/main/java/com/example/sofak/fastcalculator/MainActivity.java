@@ -1,23 +1,29 @@
 package com.example.sofak.fastcalculator;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
-//import android.widget.TextView;
-import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Random;
+
+
+
 
 public class MainActivity extends AppCompatActivity {
 
     int count, countsyn = 0 , countdot = 0, tvend, tvlength, i;
     String old, old1;
     char aChar;
+    private ImageView mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView tv = (TextView) findViewById(R.id.canvas);
+        final TextView answer = (TextView) findViewById(R.id.answer);
         /*EditText numbers = (EditText) findViewById(R.id.edit_numbers);
         *         <EditText
             android:id="@+id/edit_numbers"
@@ -37,22 +44,20 @@ public class MainActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
-               // Log.d("length gt xanomaste", Integer.toString(tv.getText().length()));
+
                 if (tv.getText().length()>1){
                 old = tv.getText().subSequence(0,tv.getText().length()-1).toString();
                 tv.setText(old);
                 }
-                else {//if(tv.getText().length()==1 && tv.getText().charAt(0)!=0){
+                else {
                     tv.setText("0");
                 }
             }
         });
-
         Button clea = (Button) findViewById(R.id.clear);
         clea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
-                //aChar = tv.getText().charAt(0);
                 tv.setText("0");
             }
         });
@@ -63,51 +68,44 @@ public class MainActivity extends AppCompatActivity {
                 count = 1;
                 aChar = tv.getText().charAt(0);
                 tvend = tv.getText().length();
-               // ij = tv.getText().length();
-                Log.d("Pare Length", Integer.toString(tv.getText().length()));
                 if (aChar == '0' ){
-                        Log.d("Pare 3", Integer.toString(count));
                         if (count%2==1) {
                             tv.setText("(");
                             count++;
-                            Log.d("Pare 4", Integer.toString(count));
                         }
                         else{
                             tv.setText(")");
                             count++;
-                            Log.d("Pare 5", Integer.toString(count));
                         }
                 }else
                 {
                     for(int ij=0;ij<tvend;ij++){
                         if (tv.getText().charAt(ij)== '(' || tv.getText().charAt(ij)== ')'){
                             count++;
-                            Log.d("Pare 1", Character.toString(tv.getText().charAt(ij)));
-                        }                    //tvlength--;
-                        //Log.d("Pare 2", Integer.toString(tv.getText().length()));
+                        }
                     }
-                    Log.d("Pare 6", Integer.toString(count));
                     old = tv.getText().toString();
                     if (count%2==1) {
                         tv.setText(old + "(");
                         count++;
-                        Log.d("Pare 7", Integer.toString(count));
                     }
                     else{
                         tv.setText(old + ")");
                         count++;
-                        Log.d("Pare 8", Integer.toString(count));
                     }
                 }
             }
         });
-
         Button percent = (Button) findViewById(R.id.percent);
         percent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
                 old = tv.getText().toString();
-                tv.setText(old + "%");
+                if(tv.getText().charAt(tv.getText().length()-1)=='%'){
+                    tv.setText(old);
+                }else{
+                    tv.setText(old + "%");
+                }
             }
         });
         Button dia = (Button) findViewById(R.id.dia);
@@ -116,7 +114,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View viewrt) {
                 old = tv.getText().toString();
                 if (tv.getText().length()>0 && tv.getText().charAt(0)!='0' ) {
-                    tv.setText(old + "/");
+                    if(tv.getText().charAt(tv.getText().length()-1)=='/') {
+                        tv.setText(old );
+                    }else if (tv.getText().charAt(tv.getText().length()-1)=='+'||tv.getText().charAt(tv.getText().length()-1)=='*'||tv.getText().charAt(tv.getText().length()-1)=='-'){
+                        old = tv.getText().subSequence(0, tv.getText().length() - 1).toString() + "/";
+                        tv.setText(old);
+                    }else{
+                        tv.setText(old + "/");
+                    }
                 }
             }
         });
@@ -142,7 +147,49 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View viewrt) {
                 old = tv.getText().toString();
                 if (tv.getText().length()>0 && tv.getText().charAt(0)!='0' ) {
-                    tv.setText(old + "*");
+                    if(tv.getText().charAt(tv.getText().length()-1)=='*') {
+                        tv.setText(old );
+                    }else if (tv.getText().charAt(tv.getText().length()-1)=='+'||tv.getText().charAt(tv.getText().length()-1)=='-'||tv.getText().charAt(tv.getText().length()-1)=='/'){
+                        old = tv.getText().subSequence(0, tv.getText().length() - 1).toString() + "*";
+                        tv.setText(old);
+                    }else{
+                        tv.setText(old + "*");
+                    }
+                }
+            }
+        });
+        Button meion = (Button) findViewById(R.id.meion);
+        meion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View viewrt) {
+                old = tv.getText().toString();
+                if (tv.getText().length()>0 && tv.getText().charAt(0)!='0' ) {
+                    if(tv.getText().charAt(tv.getText().length()-1)=='-') {
+                        tv.setText(old );
+                    }else if (tv.getText().charAt(tv.getText().length()-1)=='+'||tv.getText().charAt(tv.getText().length()-1)=='*'||tv.getText().charAt(tv.getText().length()-1)=='/'){
+                        old = tv.getText().subSequence(0, tv.getText().length() - 1).toString() + "-";
+                        tv.setText(old);
+                    }else{
+                        tv.setText(old + "-");
+                    }
+                }
+            }
+        });
+        Button kai = (Button) findViewById(R.id.kai);
+        kai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View viewrt) {
+                old = tv.getText().toString();
+                if (tv.getText().length()>0 && tv.getText().charAt(0)!='0' ) {
+                    if(tv.getText().charAt(tv.getText().length()-1)=='+') {
+                        tv.setText(old);
+                    }else if (tv.getText().charAt(tv.getText().length()-1)=='-'||tv.getText().charAt(tv.getText().length()-1)=='*'||tv.getText().charAt(tv.getText().length()-1)=='/'){
+                        old = tv.getText().subSequence(0, tv.getText().length() - 1).toString() + "+";
+                        tv.setText(old);
+                    }
+                    else{
+                        tv.setText(old + "+");
+                    }
                 }
             }
         });
@@ -366,7 +413,19 @@ public class MainActivity extends AppCompatActivity {
                 Random r = new Random();
                 int i1 = r.nextInt(50) + 1;
                 tv.setText(Integer.toString(i1));
-                Toast.makeText(getApplicationContext(),"I told you I was fast, not smart :p", Toast.LENGTH_LONG).show();
+                Dialog d = new Dialog(MainActivity.this);
+                d.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+                d.setContentView(getLayoutInflater().inflate(R.layout.tryfragment, null));
+                TextView titel = (TextView) d.findViewById(R.id.answer);
+                titel.setText(Integer.toString(i1));
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                getWindow().setFormat(PixelFormat.RGBA_8888);
+                d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                lp.copyFrom(d.getWindow().getAttributes());
+                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                d.show();
+                d.getWindow().setAttributes(lp);
             }
         });
         Button synplyn = (Button) findViewById(R.id.synplun);
@@ -376,12 +435,8 @@ public class MainActivity extends AppCompatActivity {
                 aChar = tv.getText().charAt(0);
                 tvend = tv.getText().length();
                 tvlength = tv.getText().length();
-                Log.d("SynPlyn Length", Integer.toString(tv.getText().length()));
                 while((tv.getText().charAt(tvlength-1)!= '+' && tv.getText().charAt(tvlength-1)!= '-' && tv.getText().charAt(tvlength-1)!= '*'&& tv.getText().charAt(tvlength-1)!= '/'&&tvlength>1)){
-                    Log.d("SynPlyn Char", Character.toString(tv.getText().charAt(tvlength-1)));
-                    Log.d("SynPlyn Tvlength", Integer.toString(tvlength));
                     tvlength--;
-
                 }
                 switch (tv.getText().charAt(tvlength-1)) {
                     case '+':
@@ -397,29 +452,22 @@ public class MainActivity extends AppCompatActivity {
                         if(tvlength-1==0){
                             old1 = tv.getText().subSequence(1,tvend).toString();
                             tv.setText(old1);
-                            Log.d("PLYN Mphka edw", "1 ");
                         }
                         else if(tvlength-1==tvend-1 ){
                             if ( tvlength-2!='(') {
                                 old1 = tv.getText().subSequence(0, tvlength - 1).toString() + "+";
                                 tv.setText(old1);
-                                Log.d("PLYN Mphka edw", "2 ");
                             }else{
                                 old1 = tv.getText().subSequence(0, tvlength - 1).toString();
                                 tv.setText(old1);
-                                Log.d("PLYN Mphka edw", "3 ");
                             }
                         }else {
-                            Log.d("length", "tvlength-2");
                             if(tv.getText().charAt(tvlength-2)!='('){
                                 old1 = tv.getText().subSequence(0, tvlength - 1).toString() + "+" + tv.getText().subSequence(tvlength , tvend ).toString();
                                 tv.setText(old1);
-                                Log.d("PLYN Mphka edw", "4");
                             }else{
                                 old1 = tv.getText().subSequence(0, tvlength - 2).toString() +  tv.getText().subSequence(tvlength , tvend ).toString();
                                 tv.setText(old1);
-                                Log.d("PLYN Mphka edw", "5");
-
                             }
                         }
                         break;
@@ -444,65 +492,15 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         old1 = "-" + tv.getText().toString();
                         tv.setText(old1);
-                            /*if (aChar != '-' ){
-                                old = tv.getText().toString();
-                                tv.setText("-" + old);
-                            }else
-                            {
-                                old = tv.getText().subSequence(1,tvend).toString();
-                                tv.setText(old);
-                            }*/
                         break;
                     }
-                /*for(int i=tvend-1;i>0;i--){
-
-                }*/
-                /*countsyn++;
-                old = tv.getText().toString();
-                if (countsyn%2==1) {
-
-                    tv.setText(old + "-");
-                }
-                else{
-                    tv.setText(old + "-");
-                }*/
-            }
-        });
-        Button meion = (Button) findViewById(R.id.meion);
-        meion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View viewrt) {
-                old = tv.getText().toString();
-                if (tv.getText().length()>0 && tv.getText().charAt(0)!='0' ) {
-                    tv.setText(old + "-");
-                }
-            }
-        });
-        Button kai = (Button) findViewById(R.id.kai);
-        kai.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View viewrt) {
-                old = tv.getText().toString();
-                if (tv.getText().length()>0 && tv.getText().charAt(0)!='0' ) {
-                    tv.setText(old + "+");
-                }
             }
         });
 
-         // int[] numbers = {R.id.eight, R.id.nine, R.id.seven, R.id.six, R.id.five, R.id.four, R.id.three, R.id.two, R.id.one, R.id.zero};
-        //better idea: me to pou patietai ena apo ta koumpia not number 8a apo8hkeuetai se int oti periexei to textview
-        /// mhden.setOnClickListener((View.OnClickListener) this);
-        //  ena.setOnClickListener((View.OnClickListener) this);
-
-
-    }
-
+     }
          /*TODO random number
-        *  int alreadyPickedNumber=3 //Number to exclude
-    int number=random.nextInt(9);
-    while(number==alreadyPickedNumber){
-         number=random.nextInt(9);
-    }
-        */
-
+        *   int alreadyPickedNumber=3 //Number to exclude
+            int number=random.nextInt(9);
+            while(number==alreadyPickedNumber){
+            number=random.nextInt(9);}*/
 }
