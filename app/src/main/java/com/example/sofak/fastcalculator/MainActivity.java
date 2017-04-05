@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        // TODO percent after *
         Button percent = (Button) findViewById(R.id.percent);
         percent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        //TODO pra3eis oxi meta apo parenthesis
         Button dia = (Button) findViewById(R.id.dia);
         dia.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        //TODO dot oxi se akura shmeia
         Button dot = (Button) findViewById(R.id.dot);
         dot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -447,7 +450,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View viewrt) {
                 Random r = new Random();
-                final int i1 = r.nextInt(50) + 1;
+                final int i1 = r.nextInt(1000) + 1;
                 //randomises the output
                 tv.setText(Integer.toString(i1));
                 final Handler handler = new Handler();

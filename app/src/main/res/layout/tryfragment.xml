@@ -29,6 +29,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:textSize="20dp"
+        android:id="@+id/dial"
         android:textAlignment="center"
         android:text="@string/toldya"/>
 </LinearLayout>
