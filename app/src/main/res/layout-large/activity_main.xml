@@ -13,7 +13,7 @@
         android:layout_height="110dp"
         android:orientation="horizontal">
 
-        <TextView
+        <com.example.sofak.fastcalculator.AutoResizeTextView
             android:id="@+id/canvas"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"

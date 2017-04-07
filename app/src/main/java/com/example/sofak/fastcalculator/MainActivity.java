@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -21,8 +22,9 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     //declaration and initialization of variables
-    int count;
+    int count, cdot;
     int countdot = 0;
+    int countpr = 0;
     int tvend;
     int tvlength;
     int i;
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //declaration initialisation elements of the layout
-        final TextView tv = (TextView) findViewById(R.id.canvas);
+        final com.example.sofak.fastcalculator.AutoResizeTextView tv = (com.example.sofak.fastcalculator.AutoResizeTextView) findViewById(R.id.canvas);
                  //TODO  Allazw textview me editext*/
 
 
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         clea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
+                tv.setTextSize(50);
                 tv.setText("0");
             }
         });
@@ -81,71 +84,98 @@ public class MainActivity extends AppCompatActivity {
                 aChar = tv.getText().charAt(0);
                 tvend = tv.getText().length();
                 //if there is a zero in the numbers it puts ( or ) depending on how much parenthesis have been put already
-                if (aChar == '0' ){
-                        if (count%2==1) {
-                            tv.setText("(");
-                            count++;
+                //counting the parenthesis that have already been put in textview
+               // int ij = tv.getText().length()-1;
+                if(tvend>=1){
+                    int ij = tv.getText().length()-1;
+                    Log.d("PAra", Integer.toString(ij));
+                      while(ij>0 && (tv.getText().charAt(ij)!='(' && tv.getText().charAt(ij)!=')')){
+                          Log.d("PAra", Integer.toString(ij));
+                          ij--;
+                      }
+                       //depending of the number of counts ( or ) will be put
+                        if (tv.getText().charAt(ij)=='(') {
+                            Log.d("PAra", Integer.toString(ij));
+                            Log.d("PAraCha", Character.toString(tv.getText().charAt(ij)));
+                            if(tv.getText().charAt(tvend-1)=='('||tv.getText().charAt(tvend-1)=='+'||tv.getText().charAt(tvend-1)=='-'||tv.getText().charAt(tvend-1)=='/' ||tv.getText().charAt(tvend-1)=='*') {
+                                old = tv.getText().toString();
+                                tv.setText(old + "(");
+                            }else if(tv.getText().charAt(tvend-1)=='.'){
+                                old = tv.getText().subSequence(0, tv.getText().length() - 1).toString();
+                                tv.setText(old+ ")");
+                            }else{
+                                old = tv.getText().toString();
+                                tv.setText(old + ")");
+                            }
+                        }else if (tv.getText().charAt(ij)==')'){
+                            Log.d("PAra", Integer.toString(ij));
+                            Log.d("PAraCha", Character.toString(tv.getText().charAt(ij)));
+                            old = tv.getText().toString();
+                            if(tv.getText().charAt(tvend-1)=='+'||tv.getText().charAt(tvend-1)=='-'||tv.getText().charAt(tvend-1)=='/' ||tv.getText().charAt(tvend-1)=='*'){
+                                tv.setText(old + "(");
+                            }else if(tv.getText().charAt(tvend-1)=='.'){
+                                old = tv.getText().subSequence(0, tv.getText().length() - 1).toString();
+                                tv.setText(old+ "(");
+                            }else{
+                                tv.setText(old + "*(");
+                            }
+                        }else{
+                            if(tv.getText().charAt(tvend-1)=='+'||tv.getText().charAt(tvend-1)=='-'||tv.getText().charAt(tvend-1)=='/' ||tv.getText().charAt(tvend-1)=='*'){
+                                old = tv.getText().toString();
+                                tv.setText(old + "(");
+                            }else if(tv.getText().charAt(tvend-1)=='.'){
+                                old = tv.getText().subSequence(0, tv.getText().length() - 1).toString();
+                                tv.setText(old+ "*(");
+                            }else{
+                                old = tv.getText().toString();
+                                tv.setText(old + "*(");
+                            }
                         }
-                        else{
-                            tv.setText(")");
-                            count++;
-                        }
-                }else
-                {
-                    //counting the parenthesis that have already been put in textview
-                    for(int ij=0;ij<tvend;ij++){
-                        if (tv.getText().charAt(ij)== '(' || tv.getText().charAt(ij)== ')'){
-                            count++;
-                        }
-                    }
-                    old = tv.getText().toString();
-                    //depending of the number of counts ( or ) will be put
-                    if (count%2==1) {
-                        tv.setText(old + "(");
-                        count++;
-                    }
-                    else{
-                        tv.setText(old + ")");
-                        count++;
-                    }
+                }else{
+                    tv.setText("(");
                 }
             }
         });
-        // TODO percent after *
         Button percent = (Button) findViewById(R.id.percent);
         percent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
                 old = tv.getText().toString();
                 //checking if there is already a percent symbol before putting a new one
-                if(tv.getText().charAt(tv.getText().length()-1)=='%'){
+                if(tv.getText().charAt(tv.getText().length()-1)==')'||tv.getText().charAt(tv.getText().length()-1)=='('||tv.getText().charAt(tv.getText().length()-1)=='%'||tv.getText().charAt(tv.getText().length()-1)=='+'||tv.getText().charAt(tv.getText().length()-1)=='-'||tv.getText().charAt(tv.getText().length()-1)=='*'||tv.getText().charAt(tv.getText().length()-1)=='/') {
                     tv.setText(old);
+                }else if(tv.getText().charAt(tv.getText().length()-1)=='.'){
+                    old = tv.getText().subSequence(0, tv.getText().length() - 1).toString();
+                    tv.setText(old + "%");
                 }else{
                     tv.setText(old + "%");
                 }
             }
         });
-        //TODO pra3eis oxi meta apo parenthesis
         Button dia = (Button) findViewById(R.id.dia);
         dia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
-                old = tv.getText().toString();
+               // old = tv.getText().toString();
                 //checking if there is a number to divise or if it is zero
-                if (tv.getText().length()>0 && tv.getText().charAt(0)!='0' ) {
+                if (tv.getText().length()>0 ) {
                     //if there is already another symbol(+,-,*) it changes to / and if is already a / symbol it doesn't add an extra one.
-                    if(tv.getText().charAt(tv.getText().length()-1)=='/') {
+                    if(tv.getText().charAt(tv.getText().length()-1)=='/'||tv.getText().charAt(tv.getText().length()-1)=='(') {
+                        old = tv.getText().toString();
                         tv.setText(old );
                     }else if (tv.getText().charAt(tv.getText().length()-1)=='+'||tv.getText().charAt(tv.getText().length()-1)=='*'||tv.getText().charAt(tv.getText().length()-1)=='-'){
                         old = tv.getText().subSequence(0, tv.getText().length() - 1).toString() + "/";
                         tv.setText(old);
+                    }else if (tv.getText().charAt(tv.getText().length()-1)=='.') {
+                        old = tv.getText().subSequence(0, tv.getText().length() - 1).toString() + "/";
+                        tv.setText(old);
                     }else{
+                        old = tv.getText().toString();
                         tv.setText(old + "/");
                     }
                 }
             }
         });
-        //TODO dot oxi se akura shmeia
         Button dot = (Button) findViewById(R.id.dot);
         dot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,28 +185,42 @@ public class MainActivity extends AppCompatActivity {
                 for(int i=0;i<tv.getText().length();i++) {
                     if(tv.getText().charAt(i)=='.'){
                         countdot++;
+                        cdot = i;
+                    }
+                    if(tv.getText().charAt(i)=='+'||tv.getText().charAt(i)=='-'||tv.getText().charAt(i)=='*'||tv.getText().charAt(i)=='/'){
+                        countpr=i;
                     }
                 }
                 if(countdot==0){
                     tv.setText(old + ".");
                 }
+                else{
+                    if(countpr>cdot){
+                        tv.setText(old + ".");
+                    }
+                }
                 countdot=0;
+                countpr=0;
             }
         });
         Button epi = (Button) findViewById(R.id.epi);
         epi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
-                old = tv.getText().toString();
                 //checking if there is a number to multiplie or if it is zero
-                if (tv.getText().length()>0 && tv.getText().charAt(0)!='0' ) {
+                if (tv.getText().length()>0) {
                     //if there is already another symbol(+,-,/) it changes to * and if is already a * symbol it doesn't add an extra one.
-                    if(tv.getText().charAt(tv.getText().length()-1)=='*') {
+                    if(tv.getText().charAt(tv.getText().length()-1)=='*'||tv.getText().charAt(tv.getText().length()-1)=='(') {
+                        old = tv.getText().toString();
                         tv.setText(old );
                     }else if (tv.getText().charAt(tv.getText().length()-1)=='+'||tv.getText().charAt(tv.getText().length()-1)=='-'||tv.getText().charAt(tv.getText().length()-1)=='/'){
                         old = tv.getText().subSequence(0, tv.getText().length() - 1).toString() + "*";
                         tv.setText(old);
+                    }else if (tv.getText().charAt(tv.getText().length()-1)=='.') {
+                        old = tv.getText().subSequence(0, tv.getText().length() - 1).toString() + "*";
+                        tv.setText(old);
                     }else{
+                        old = tv.getText().toString();
                         tv.setText(old + "*");
                     }
                 }
@@ -188,11 +232,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View viewrt) {
                 old = tv.getText().toString();
                 //checking if there is a number to subtract or if it is zero
-                if (tv.getText().length()>0 && tv.getText().charAt(0)!='0' ) {
+                if (tv.getText().length()>0) {
                     //if there is already another symbol(+,/,*) it changes to - and if is already a - symbol it doesn't add an extra one.
-                    if(tv.getText().charAt(tv.getText().length()-1)=='-') {
+                    if(tv.getText().charAt(tv.getText().length()-1)=='-'||tv.getText().charAt(tv.getText().length()-1)=='(') {
                         tv.setText(old );
                     }else if (tv.getText().charAt(tv.getText().length()-1)=='+'||tv.getText().charAt(tv.getText().length()-1)=='*'||tv.getText().charAt(tv.getText().length()-1)=='/'){
+                        old = tv.getText().subSequence(0, tv.getText().length() - 1).toString() + "-";
+                        tv.setText(old);
+                    }else if (tv.getText().charAt(tv.getText().length()-1)=='.') {
                         old = tv.getText().subSequence(0, tv.getText().length() - 1).toString() + "-";
                         tv.setText(old);
                     }else{
@@ -207,15 +254,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View viewrt) {
                 old = tv.getText().toString();
                 //checking if there is a number to add or if it is zero
-                if (tv.getText().length()>0 && tv.getText().charAt(0)!='0' ) {
+                if (tv.getText().length()>0) {
                     //if there is already another symbol(/,-,*) it changes to + and if is already a + symbol it doesn't add an extra one.
-                    if(tv.getText().charAt(tv.getText().length()-1)=='+') {
+                    if(tv.getText().charAt(tv.getText().length()-1)=='+'||tv.getText().charAt(tv.getText().length()-1)=='(') {
                         tv.setText(old);
                     }else if (tv.getText().charAt(tv.getText().length()-1)=='-'||tv.getText().charAt(tv.getText().length()-1)=='*'||tv.getText().charAt(tv.getText().length()-1)=='/'){
                         old = tv.getText().subSequence(0, tv.getText().length() - 1).toString() + "+";
                         tv.setText(old);
-                    }
-                    else{
+                    }else if (tv.getText().charAt(tv.getText().length()-1)=='.') {
+                        old = tv.getText().subSequence(0, tv.getText().length() - 1).toString() + "+";
+                        tv.setText(old);
+                    }else{
                         tv.setText(old + "+");
                     }
                 }
@@ -228,17 +277,28 @@ public class MainActivity extends AppCompatActivity {
                 if(tv.getText().length()!=0) {
                     aChar = tv.getText().charAt(0);
                     tvend = tv.getText().length() - 1;
-                    //checking if there is already a number and adds 8 or if it is zero so it changes it to 8
-                    if (aChar == '0') {
-                        if (tv.getText().length() > 1) {
-                            old = tv.getText().subSequence(1, tvend).toString();
+                    //checking if there is already a number and adds 2 or if it is zero so it changes it to 2
+                    if (tv.getText().length() > 1) {
+                        if (aChar == '-' && tv.getText().charAt(1)=='0'){
+                            old = tv.getText().subSequence(0, tvend).toString();
                             tv.setText(old + "8");
-                        } else {
-                            tv.setText("8");
+                        }else if( tv.getText().charAt(tv.getText().length() - 1)=='0' &&(tv.getText().charAt(tv.getText().length() - 2)=='+'||tv.getText().charAt(tv.getText().length() - 2)=='-'||tv.getText().charAt(tv.getText().length() - 2)=='*'||tv.getText().charAt(tv.getText().length() - 2)=='/')){
+                            old = tv.getText().subSequence(0, tvend).toString();
+                            tv.setText(old + "8");
+                        }else if(tv.getText().charAt(tv.getText().length() - 1)==')'||tv.getText().charAt(tv.getText().length() - 1)=='%'){
+                            old = tv.getText().toString();
+                            tv.setText(old + "*8");
+                        }else{
+                            old = tv.getText().toString();
+                            tv.setText(old + "8");
                         }
                     } else {
-                        old = tv.getText().toString();
-                        tv.setText(old + "8");
+                        if (aChar == '0') {
+                            tv.setText("8");
+                        } else {
+                            old = tv.getText().toString();
+                            tv.setText(old + "8");
+                        }
                     }
                 }
             }
@@ -250,17 +310,28 @@ public class MainActivity extends AppCompatActivity {
                 if(tv.getText().length()!=0) {
                     aChar = tv.getText().charAt(0);
                     tvend = tv.getText().length() - 1;
-                    //checking if there is already a number and adds 9 or if it is zero so it changes it to 9
-                    if (aChar == '0') {
-                        if (tv.getText().length() > 1) {
-                            old = tv.getText().subSequence(1, tvend).toString();
+                    //checking if there is already a number and adds 2 or if it is zero so it changes it to 2
+                    if (tv.getText().length() > 1) {
+                        if (aChar == '-' && tv.getText().charAt(1)=='0'){
+                            old = tv.getText().subSequence(0, tvend).toString();
                             tv.setText(old + "9");
-                        } else {
-                            tv.setText("9");
+                        }else if( tv.getText().charAt(tv.getText().length() - 1)=='0' &&(tv.getText().charAt(tv.getText().length() - 2)=='+'||tv.getText().charAt(tv.getText().length() - 2)=='-'||tv.getText().charAt(tv.getText().length() - 2)=='*'||tv.getText().charAt(tv.getText().length() - 2)=='/')){
+                            old = tv.getText().subSequence(0, tvend).toString();
+                            tv.setText(old + "9");
+                        }else if(tv.getText().charAt(tv.getText().length() - 1)==')'||tv.getText().charAt(tv.getText().length() - 1)=='%'){
+                            old = tv.getText().toString();
+                            tv.setText(old + "*9");
+                        }else{
+                            old = tv.getText().toString();
+                            tv.setText(old + "9");
                         }
                     } else {
-                        old = tv.getText().toString();
-                        tv.setText(old + "9");
+                        if (aChar == '0') {
+                            tv.setText("9");
+                        } else {
+                            old = tv.getText().toString();
+                            tv.setText(old + "9");
+                        }
                     }
                 }
             }
@@ -272,17 +343,28 @@ public class MainActivity extends AppCompatActivity {
                 if(tv.getText().length()!=0) {
                     aChar = tv.getText().charAt(0);
                     tvend = tv.getText().length() - 1;
-                    //checking if there is already a number and adds 7 or if it is zero so it changes it to 7
-                    if (aChar == '0') {
-                        if (tv.getText().length() > 1) {
-                            old = tv.getText().subSequence(1, tvend).toString();
+                    //checking if there is already a number and adds 2 or if it is zero so it changes it to 2
+                    if (tv.getText().length() > 1) {
+                        if (aChar == '-' && tv.getText().charAt(1)=='0'){
+                            old = tv.getText().subSequence(0, tvend).toString();
                             tv.setText(old + "7");
-                        } else {
-                            tv.setText("7");
+                        }else if( tv.getText().charAt(tv.getText().length() - 1)=='0' &&(tv.getText().charAt(tv.getText().length() - 2)=='+'||tv.getText().charAt(tv.getText().length() - 2)=='-'||tv.getText().charAt(tv.getText().length() - 2)=='*'||tv.getText().charAt(tv.getText().length() - 2)=='/')){
+                            old = tv.getText().subSequence(0, tvend).toString();
+                            tv.setText(old + "7");
+                        }else if(tv.getText().charAt(tv.getText().length() - 1)==')'||tv.getText().charAt(tv.getText().length() - 1)=='%'){
+                            old = tv.getText().toString();
+                            tv.setText(old + "*7");
+                        }else{
+                            old = tv.getText().toString();
+                            tv.setText(old + "7");
                         }
                     } else {
-                        old = tv.getText().toString();
-                        tv.setText(old + "7");
+                        if (aChar == '0') {
+                            tv.setText("7");
+                        } else {
+                            old = tv.getText().toString();
+                            tv.setText(old + "7");
+                        }
                     }
                 }
             }
@@ -294,17 +376,28 @@ public class MainActivity extends AppCompatActivity {
                 if(tv.getText().length()!=0) {
                     aChar = tv.getText().charAt(0);
                     tvend = tv.getText().length() - 1;
-                    //checking if there is already a number and adds 6 or if it is zero so it changes it to 6
-                    if (aChar == '0') {
-                        if (tv.getText().length() > 1) {
-                            old = tv.getText().subSequence(1, tvend).toString();
+                    //checking if there is already a number and adds 2 or if it is zero so it changes it to 2
+                    if (tv.getText().length() > 1) {
+                        if (aChar == '-' && tv.getText().charAt(1)=='0'){
+                            old = tv.getText().subSequence(0, tvend).toString();
                             tv.setText(old + "6");
-                        } else {
-                            tv.setText("6");
+                        }else if( tv.getText().charAt(tv.getText().length() - 1)=='0' &&(tv.getText().charAt(tv.getText().length() - 2)=='+'||tv.getText().charAt(tv.getText().length() - 2)=='-'||tv.getText().charAt(tv.getText().length() - 2)=='*'||tv.getText().charAt(tv.getText().length() - 2)=='/')){
+                            old = tv.getText().subSequence(0, tvend).toString();
+                            tv.setText(old + "6");
+                        }else if(tv.getText().charAt(tv.getText().length() - 1)==')'||tv.getText().charAt(tv.getText().length() - 1)=='%'){
+                            old = tv.getText().toString();
+                            tv.setText(old + "*6");
+                        }else{
+                            old = tv.getText().toString();
+                            tv.setText(old + "6");
                         }
                     } else {
-                        old = tv.getText().toString();
-                        tv.setText(old + "6");
+                        if (aChar == '0') {
+                            tv.setText("6");
+                        } else {
+                            old = tv.getText().toString();
+                            tv.setText(old + "6");
+                        }
                     }
                 }
             }
@@ -316,17 +409,28 @@ public class MainActivity extends AppCompatActivity {
                 if(tv.getText().length()!=0) {
                     aChar = tv.getText().charAt(0);
                     tvend = tv.getText().length() - 1;
-                    //checking if there is already a number and adds 5 or if it is zero so it changes it to 5
-                    if (aChar == '0') {
-                        if (tv.getText().length() > 1) {
-                            old = tv.getText().subSequence(1, tvend).toString();
+                    //checking if there is already a number and adds 2 or if it is zero so it changes it to 2
+                    if (tv.getText().length() > 1) {
+                        if (aChar == '-' && tv.getText().charAt(1)=='0'){
+                            old = tv.getText().subSequence(0, tvend).toString();
                             tv.setText(old + "5");
-                        } else {
-                            tv.setText("5");
+                        }else if( tv.getText().charAt(tv.getText().length() - 1)=='0' &&(tv.getText().charAt(tv.getText().length() - 2)=='+'||tv.getText().charAt(tv.getText().length() - 2)=='-'||tv.getText().charAt(tv.getText().length() - 2)=='*'||tv.getText().charAt(tv.getText().length() - 2)=='/')){
+                            old = tv.getText().subSequence(0, tvend).toString();
+                            tv.setText(old + "5");
+                        }else if(tv.getText().charAt(tv.getText().length() - 1)==')'||tv.getText().charAt(tv.getText().length() - 1)=='%'){
+                            old = tv.getText().toString();
+                            tv.setText(old + "*5");
+                        }else{
+                            old = tv.getText().toString();
+                            tv.setText(old + "5");
                         }
                     } else {
-                        old = tv.getText().toString();
-                        tv.setText(old + "5");
+                        if (aChar == '0') {
+                            tv.setText("5");
+                        } else {
+                            old = tv.getText().toString();
+                            tv.setText(old + "5");
+                        }
                     }
                 }
             }
@@ -338,17 +442,28 @@ public class MainActivity extends AppCompatActivity {
                 if(tv.getText().length()!=0) {
                     aChar = tv.getText().charAt(0);
                     tvend = tv.getText().length() - 1;
-                    //checking if there is already a number and adds 4 or if it is zero so it changes it to 4
-                    if (aChar == '0') {
-                        if (tv.getText().length() > 1) {
-                            old = tv.getText().subSequence(1, tvend).toString();
+                    //checking if there is already a number and adds 2 or if it is zero so it changes it to 2
+                    if (tv.getText().length() > 1) {
+                        if (aChar == '-' && tv.getText().charAt(1)=='0'){
+                            old = tv.getText().subSequence(0, tvend).toString();
                             tv.setText(old + "4");
-                        } else {
-                            tv.setText("4");
+                        }else if( tv.getText().charAt(tv.getText().length() - 1)=='0' &&(tv.getText().charAt(tv.getText().length() - 2)=='+'||tv.getText().charAt(tv.getText().length() - 2)=='-'||tv.getText().charAt(tv.getText().length() - 2)=='*'||tv.getText().charAt(tv.getText().length() - 2)=='/')){
+                            old = tv.getText().subSequence(0, tvend).toString();
+                            tv.setText(old + "4");
+                        }else if(tv.getText().charAt(tv.getText().length() - 1)==')'||tv.getText().charAt(tv.getText().length() - 1)=='%'){
+                            old = tv.getText().toString();
+                            tv.setText(old + "*4");
+                        }else{
+                            old = tv.getText().toString();
+                            tv.setText(old + "4");
                         }
                     } else {
-                        old = tv.getText().toString();
-                        tv.setText(old + "4");
+                        if (aChar == '0') {
+                            tv.setText("4");
+                        } else {
+                            old = tv.getText().toString();
+                            tv.setText(old + "4");
+                        }
                     }
                 }
             }
@@ -357,22 +472,32 @@ public class MainActivity extends AppCompatActivity {
         tria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewrt) {
-                //checking if there is a number already in textview
-                if (tv.getText().length() != 0) {
+                if(tv.getText().length()!=0) {
                     aChar = tv.getText().charAt(0);
-                }
-                tvend = tv.getText().length() - 1;
-                //checking if there is already a number and adds 3 or if it is zero so it changes it to 3
-                if (aChar == '0') {
+                    tvend = tv.getText().length() - 1;
+                    //checking if there is already a number and adds 2 or if it is zero so it changes it to 2
                     if (tv.getText().length() > 1) {
-                        old = tv.getText().subSequence(1, tvend).toString();
-                        tv.setText(old + "3");
+                        if (aChar == '-' && tv.getText().charAt(1)=='0'){
+                            old = tv.getText().subSequence(0, tvend).toString();
+                            tv.setText(old + "3");
+                        }else if( tv.getText().charAt(tv.getText().length() - 1)=='0' &&(tv.getText().charAt(tv.getText().length() - 2)=='+'||tv.getText().charAt(tv.getText().length() - 2)=='-'||tv.getText().charAt(tv.getText().length() - 2)=='*'||tv.getText().charAt(tv.getText().length() - 2)=='/')){
+                            old = tv.getText().subSequence(0, tvend).toString();
+                            tv.setText(old + "3");
+                        }else if(tv.getText().charAt(tv.getText().length() - 1)==')'||tv.getText().charAt(tv.getText().length() - 1)=='%'){
+                            old = tv.getText().toString();
+                            tv.setText(old + "*3");
+                        }else{
+                            old = tv.getText().toString();
+                            tv.setText(old + "3");
+                        }
                     } else {
-                        tv.setText("3");
+                        if (aChar == '0') {
+                            tv.setText("3");
+                        } else {
+                            old = tv.getText().toString();
+                            tv.setText(old + "3");
+                        }
                     }
-                } else {
-                    old = tv.getText().toString();
-                    tv.setText(old + "3");
                 }
             }
 
@@ -385,17 +510,28 @@ public class MainActivity extends AppCompatActivity {
                     aChar = tv.getText().charAt(0);
                     tvend = tv.getText().length() - 1;
                     //checking if there is already a number and adds 2 or if it is zero so it changes it to 2
-                    if (aChar == '0') {
                         if (tv.getText().length() > 1) {
-                            old = tv.getText().subSequence(1, tvend).toString();
-                            tv.setText(old + "2");
+                            if (aChar == '-' && tv.getText().charAt(1)=='0'){
+                                old = tv.getText().subSequence(0, tvend).toString();
+                                tv.setText(old + "2");
+                            }else if( tv.getText().charAt(tv.getText().length() - 1)=='0' &&(tv.getText().charAt(tv.getText().length() - 2)=='+'||tv.getText().charAt(tv.getText().length() - 2)=='-'||tv.getText().charAt(tv.getText().length() - 2)=='*'||tv.getText().charAt(tv.getText().length() - 2)=='/')){
+                                old = tv.getText().subSequence(0, tvend).toString();
+                                tv.setText(old + "2");
+                            }else if(tv.getText().charAt(tv.getText().length() - 1)==')'||tv.getText().charAt(tv.getText().length() - 1)=='%'){
+                                old = tv.getText().toString();
+                                tv.setText(old + "*2");
+                            }else{
+                                old = tv.getText().toString();
+                                tv.setText(old + "2");
+                            }
                         } else {
-                            tv.setText("2");
+                            if (aChar == '0') {
+                                 tv.setText("2");
+                            } else {
+                                old = tv.getText().toString();
+                                tv.setText(old + "2");
+                            }
                         }
-                    } else {
-                        old = tv.getText().toString();
-                        tv.setText(old + "2");
-                    }
                 }
             }
         });
@@ -404,22 +540,31 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View viewrt) {
                 if(tv.getText().length()!=0) {
-                aChar = tv.getText().charAt(0);
-                tvend = tv.getText().length() - 1;
-               //checking if there is already a number and adds 1 or if it is zero so it changes it to 1
-                if (aChar == '0' ){
-                    if (tv.getText().length()>1){
-                        old = tv.getText().subSequence(1,tvend).toString();
-                        tv.setText(old + "1");
-                    }else
-                    {
-                        tv.setText("1");
+                    aChar = tv.getText().charAt(0);
+                    tvend = tv.getText().length() - 1;
+                    //checking if there is already a number and adds 2 or if it is zero so it changes it to 2
+                    if (tv.getText().length() > 1) {
+                        if (aChar == '-' && tv.getText().charAt(1)=='0'){
+                            old = tv.getText().subSequence(0, tvend).toString();
+                            tv.setText(old + "1");
+                        }else if( tv.getText().charAt(tv.getText().length() - 1)=='0' &&(tv.getText().charAt(tv.getText().length() - 2)=='+'||tv.getText().charAt(tv.getText().length() - 2)=='-'||tv.getText().charAt(tv.getText().length() - 2)=='*'||tv.getText().charAt(tv.getText().length() - 2)=='/')){
+                            old = tv.getText().subSequence(0, tvend).toString();
+                            tv.setText(old + "1");
+                        }else if(tv.getText().charAt(tv.getText().length() - 1)==')'||tv.getText().charAt(tv.getText().length() - 1)=='%'){
+                            old = tv.getText().toString();
+                            tv.setText(old + "*1");
+                        }else{
+                            old = tv.getText().toString();
+                            tv.setText(old + "1");
+                        }
+                    } else {
+                        if (aChar == '0') {
+                            tv.setText("1");
+                        } else {
+                            old = tv.getText().toString();
+                            tv.setText(old + "1");
+                        }
                     }
-                }else
-                {
-                    old = tv.getText().toString();
-                    tv.setText(old + "1");
-                }
                 }
             }
         });
